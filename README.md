@@ -1,6 +1,6 @@
 # my-master-data
 
-This template should help get you started developing with Vue 3 in Vite.
+My prototype for master data CRUD
 
 ## Recommended IDE Setup
 
