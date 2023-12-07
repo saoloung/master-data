@@ -17,6 +17,41 @@ export const useProductStore = defineStore('product', {
       } catch (error) {
         console.log('error', error)
       }
+    },
+    async loadProduct(id) {
+      try {
+        const response = await axios.get(`${BASE_URL}/products/${id}`)
+        this.selectedProduct = response.data
+        console.log('load product by id complete')
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    async createProduct(productData) {
+      try {
+        const response = await axios.post(`${BASE_URL}/products`, productData)
+        this.selectedProduct = response.data
+        console.log('add product complete')
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    async editProduct(productData, id) {
+      try {
+        const response = await axios.put(`${BASE_URL}/products/${id}`, productData)
+        console.log('edit product complete')
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    async deleteProduct(id) {
+      try {
+        const response = await axios.delete(`${BASE_URL}/products/${id}`)
+        this.selectedProduct = response.data
+        console.log('delete product complete')
+      } catch (error) {
+        console.log('error', error)
+      }
     }
   }
 
