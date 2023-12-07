@@ -4,7 +4,12 @@ import { RouterLink } from 'vue-router'
 import { useProductStore } from '../stores/product'
 
 const productStore = useProductStore()
-const productData = reactive({})
+const productData = reactive({
+  productCode: '',
+  productName: '',
+  price: 0,
+  imageUrl: 'https://picsum.photos/200'
+})
 
 const createProduct = async (productData) => {
   await productStore.createProduct(productData)
@@ -34,7 +39,7 @@ const createProduct = async (productData) => {
       </div>
       <div>
         Price:
-        <input type="text" v-model="productData.price">
+        <input type="number" v-model="productData.price">
       </div>
       <div>
         Image URL:
