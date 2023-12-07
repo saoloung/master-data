@@ -1,21 +1,26 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useProductStore } from '../stores/product'
 
 const productStore = useProductStore()
+const isLoading = ref(false)
 
 onMounted(async () => {
+  isLoading.value = true
   await productStore.loadProducts()
+  isLoading.value = false
 })
 
 const deleteProduct = async (productId) => {
+  isLoading.value = true
   try {
     await productStore.deleteProduct(productId)
     await productStore.loadProducts()
   } catch (error) {
     console.log('error', error)
   }
+  isLoading.value = false
 }
 
 </script>
@@ -23,6 +28,9 @@ const deleteProduct = async (productId) => {
 <template>
   <div>
     <h2>Product List View</h2>
+  </div>
+  <div v-if="isLoading">
+    <h2>Loading...</h2>
   </div>
   <div>
     <RouterLink :to="{ name: 'product-create' }">

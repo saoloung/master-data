@@ -8,19 +8,24 @@ const route = useRoute()
 
 const productId = ref(-1)
 const productData = reactive({})
+const isLoading = ref(false)
 
 onMounted(async () => {
   productId.value = parseInt(route.params.id)
+  isLoading.value = true
   await productStore.loadProduct(productId.value)
 
   productData.productCode = productStore.selectedProduct.productCode
   productData.productName = productStore.selectedProduct.productName
   productData.price = productStore.selectedProduct.price
   productData.imageUrl = productStore.selectedProduct.imageUrl
+  isLoading.value = false
 })
 
 const editProduct = async (productData, productId) => {
+  isLoading.value = true
   await productStore.editProduct(productData, productId)
+  isLoading.value = false
   alert('update completed')
 }
 
@@ -31,7 +36,10 @@ const editProduct = async (productData, productId) => {
     Product Edit View
     <RouterLink :to="{ name: 'product-list' }">Back</RouterLink>
     <div>
-      <h2>Product Header</h2>
+      <h2>Product Master</h2>
+      <div v-if="isLoading">
+        <h2>Loading...</h2>
+      </div>
       <div>
         Product ID:
         {{ productId }}
