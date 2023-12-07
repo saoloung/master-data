@@ -37,19 +37,19 @@ const deleteProduct = async (productId) => {
           <th>Product Code</th>
           <th>Product Name</th>
           <th>Price</th>
-          <th>Image URL</th>
+          <th>Pic</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="product in productStore.list">
-          <td> {{ product.id }}</td>
-          <td> {{ product.productCode }}</td>
-          <td> {{ product.productName }}</td>
-          <td> {{ product.price }}</td>
-          <td> {{ product.imageUrl }}</td>
+          <td> {{ product.id }} </td>
+          <td> {{ product.productCode }} </td>
+          <td> {{ product.productName }} </td>
+          <td> {{ product.price }} </td>
+          <td> <img :src="product.imageUrl"> </td>
           <td>
-            <RouterLink :to="{ name: 'product-edit', params: { id: product.id} }">
+            <RouterLink :to="{ name: 'product-edit', params: { id: product.id } }">
               <button>See detail</button>
             </RouterLink>
             <button @click="deleteProduct(product.id)">Delete</button>
