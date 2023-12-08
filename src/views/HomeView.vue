@@ -14,12 +14,8 @@ onMounted(async () => {
 
 const deleteProduct = async (productId) => {
   isLoading.value = true
-  try {
-    await productStore.deleteProduct(productId)
-    await productStore.loadProducts()
-  } catch (error) {
-    console.log('error', error)
-  }
+  await productStore.deleteProduct(productId)
+  await productStore.loadProducts()
   isLoading.value = false
 }
 
