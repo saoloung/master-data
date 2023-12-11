@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useProductStore } from '../stores/product'
+import Table from '../components/Table.vue'
 
 const productStore = useProductStore()
 const isLoading = ref(false)
@@ -34,32 +35,22 @@ const deleteProduct = async (productId) => {
     </RouterLink>
   </div>
   <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Product ID</th>
-          <th>Product Code</th>
-          <th>Product Name</th>
-          <th>Price</th>
-          <th>Pic</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="product in productStore.list">
-          <td> {{ product.id }} </td>
-          <td> {{ product.productCode }} </td>
-          <td> {{ product.productName }} </td>
-          <td> {{ product.price }} </td>
-          <td> <img :src="product.imageUrl"> </td>
-          <td>
-            <RouterLink :to="{ name: 'product-edit', params: { id: product.id } }">
-              <button>See detail</button>
-            </RouterLink>
-            <button @click="deleteProduct(product.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <Table
+      :headers="['Product ID', 'Product Code', 'Product Name', 'Price', 'Pic', '']"
+    >
+      <tr v-for="product in productStore.list">
+        <td> {{ product.id }} </td>
+        <td> {{ product.productCode }} </td>
+        <td> {{ product.productName }} </td>
+        <td> {{ product.price }} </td>
+        <td> <img :src="product.imageUrl"> </td>
+        <td>
+          <RouterLink :to="{ name: 'product-edit', params: { id: product.id } }">
+            <button>See detail</button>
+          </RouterLink>
+          <button @click="deleteProduct(product.id)">Delete</button>
+        </td>
+      </tr>
+    </Table>
   </div>
 </template>
