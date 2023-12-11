@@ -12,6 +12,25 @@ const productData = reactive({
 })
 const isLoading = ref(false)
 
+const fromData = [
+  {
+    name: 'Product Code',
+    field: 'productCode'
+  },
+  {
+    name: 'Product Name',
+    field: 'productName'
+  },
+  {
+    name: 'Price',
+    field: 'price'
+  },
+  {
+    name: 'Image URL',
+    field: 'imageUrl'
+  }
+]
+
 const createProduct = async (productData) => {
   isLoading.value = true
   await productStore.createProduct(productData)
@@ -35,21 +54,11 @@ const createProduct = async (productData) => {
         Product ID:
         {{ productData.id }}
       </div>
-      <div>
-        Product code:
-        <input type="text" v-model="productData.productCode">
-      </div>
-      <div>
-        Product name:
-        <input type="text" v-model="productData.productName">
-      </div>
-      <div>
-        Price:
-        <input type="number" v-model="productData.price">
-      </div>
-      <div>
-        Image URL:
-        <input type="text" v-model="productData.imageUrl">
+      <div v-for="form in fromData">
+        <label>
+          <span>{{ form.name }}</span>
+        </label>
+        <input type="text" v-model="productData[form.field]">
       </div>
       <button @click="createProduct(productData)">Create Product</button>
     </div>

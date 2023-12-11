@@ -10,11 +10,31 @@ const productId = ref(-1)
 const productData = reactive({})
 const isLoading = ref(false)
 
+const fromData = [
+  {
+    name: 'Product Code',
+    field: 'productCode'
+  },
+  {
+    name: 'Product Name',
+    field: 'productName'
+  },
+  {
+    name: 'Price',
+    field: 'price'
+  },
+  {
+    name: 'Image URL',
+    field: 'imageUrl'
+  }
+]
+
 onMounted(async () => {
   productId.value = parseInt(route.params.id)
   isLoading.value = true
   await productStore.loadProduct(productId.value)
 
+  productData.id = productStore.selectedProduct.id
   productData.productCode = productStore.selectedProduct.productCode
   productData.productName = productStore.selectedProduct.productName
   productData.price = productStore.selectedProduct.price
@@ -42,23 +62,13 @@ const editProduct = async (productData, productId) => {
       </div>
       <div>
         Product ID:
-        {{ productId }}
+        {{ productData.id }}
       </div>
-      <div>
-        Product code:
-        <input type="text" v-model="productData.productCode">
-      </div>
-      <div>
-        Product name:
-        <input type="text" v-model="productData.productName">
-      </div>
-      <div>
-        Price:
-        <input type="number" v-model="productData.price">
-      </div>
-      <div>
-        Image URL:
-        <input type="text" v-model="productData.imageUrl">
+      <div v-for="form in fromData">
+        <label>
+          <span>{{ form.name }}</span>
+        </label>
+        <input type="text" v-model="productData[form.field]">
       </div>
       <button @click="editProduct(productData, productId)">Update</button>
     </div>
