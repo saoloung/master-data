@@ -10,7 +10,7 @@ const productId = ref(-1)
 const productData = reactive({})
 const isLoading = ref(false)
 
-const fromData = [
+const formData = [
   {
     name: 'Product Code',
     field: 'productCode'
@@ -64,7 +64,7 @@ const editProduct = async (productData, productId) => {
         Product ID:
         {{ productData.id }}
       </div>
-      <div v-for="form in fromData">
+      <div v-for="form in formData">
         <label>
           <span>{{ form.name }}</span>
         </label>
